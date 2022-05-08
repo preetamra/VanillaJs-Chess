@@ -22,7 +22,7 @@ for (let i = 0; i < 8; i++) {
 initialPieces(board);
 
 function render(board) {
-  let text = "";
+  container.innerHTML = "";
   for (let j = 0; j < board.length; j++) {
     const tr = document.createElement("tr");
     for (let i = 0; i < board[j].length; i++) {
@@ -30,7 +30,6 @@ function render(board) {
       td.style.background = `${
         i % 2 == (j % 2 == 0) ? 0 : 1 ? "#eee" : "#000"
       }`;
-      td.onclick = displaypos.bind(this, j, i);
 
       switch (board[j][i].piece) {
         case pieceName[0]:
@@ -50,8 +49,8 @@ function render(board) {
             img.width = "30";
             img.src =
               board[j][i].color == "white"
-                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chess_tile_rl-whitebg.svg/64px-Chess_tile_rl-whitebg.svg.png"
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/32px-Chess_rdt45.svg.png";
+                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chess_nlt45.svg/32px-Chess_nlt45.svg.png"
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Chess_ndt45.svg/32px-Chess_ndt45.svg.png";
             td.appendChild(img);
           }
           break;
@@ -61,8 +60,8 @@ function render(board) {
             img.width = "30";
             img.src =
               board[j][i].color == "white"
-                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chess_tile_rl-whitebg.svg/64px-Chess_tile_rl-whitebg.svg.png"
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/32px-Chess_rdt45.svg.png";
+                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chess_blt45.svg/32px-Chess_blt45.svg.png"
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Chess_bdt45.svg/32px-Chess_bdt45.svg.png";
             td.appendChild(img);
           }
           break;
@@ -72,8 +71,8 @@ function render(board) {
             img.width = "30";
             img.src =
               board[j][i].color == "white"
-                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chess_tile_rl-whitebg.svg/64px-Chess_tile_rl-whitebg.svg.png"
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/32px-Chess_rdt45.svg.png";
+                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Chess_qlt45.svg/32px-Chess_qlt45.svg.png"
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Chess_qdt45.svg/32px-Chess_qdt45.svg.png";
             td.appendChild(img);
           }
           break;
@@ -83,8 +82,8 @@ function render(board) {
             img.width = "30";
             img.src =
               board[j][i].color == "white"
-                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chess_tile_rl-whitebg.svg/64px-Chess_tile_rl-whitebg.svg.png"
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Chess_rdt45.svg/32px-Chess_rdt45.svg.png";
+                ? "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Chess_klt45.svg/32px-Chess_klt45.svg.png"
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Chess_kdt45.svg/32px-Chess_kdt45.svg.png";
             td.appendChild(img);
           }
           break;
@@ -139,7 +138,6 @@ function initialPieces(board) {
   }
 }
 
-function displaypos(j, i) {}
 let from, to;
 let type = true;
 Chess.addEventListener("click", (e) => {
@@ -171,20 +169,97 @@ Chess.addEventListener("click", (e) => {
     }
     type = true;
     to = data;
-    console.log(isPosibleToMove(from, to, from.piece));
+    console.log(from,to);
+    isPosibleToMove(from, to, from.piece) && swap(from, to);
   }
 });
 
-function isPosibleToMove(from, to,type) {
-  
+function isPosibleToMove(from, to, type) {
   if (from && to) {
-    if (
-      (from.loclet == to.loclet && from.locnum + 1 == to.locnum) ||
-      from.locnum - 1 == to.locnum
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (type) {
+      case pieceName[0]:
+        return from.loclet == to.loclet || from.locnum == to.locnum;
+      case pieceName[1]:
+        return;
+      case pieceName[2]:
+        return checkbishoppos(from,to);
+      case pieceName[pieceName.length - 1]:
+        return from.loclet == to.loclet    
     }
   }
+}
+
+function checkrockpos(from,to)
+{
+  
+}
+
+function checkbishoppos(from,to)
+{
+  let a={...from};
+  let b={...from};
+  let c={...from};
+  let d={...from};
+  for(const item of letters)
+  {
+    a.loclet=String.fromCharCode(a.loclet.charCodeAt(0)-1);
+    a.locnum=a.locnum-1;
+    b.loclet=String.fromCharCode(b.loclet.charCodeAt(0)+1);
+    b.locnum=b.locnum-1;
+    c.loclet=String.fromCharCode(c.loclet.charCodeAt(0)-1)
+    c.locnum=c.locnum+1;
+    d.loclet=String.fromCharCode(d.loclet.charCodeAt(0)+1);
+    d.locnum=d.locnum+1
+    if(to.locnum == a.locnum || to.locnum ==  b.locnum || to.locnum == c.locnum || to.locnum == d.locnum && to.loclet == a.loclet ||to.loclet == b.loclet || to.loclet == c.loclet ||to.loclet == d.loclet)
+    {
+      let isPiece=false;
+      let temp={...from};
+      if(to.loclet == a.loclet)
+      {
+        for(const item of letters)
+        {
+          temp.loclet=String.fromCharCode(temp.loclet.charCodeAt(0)-1);
+          temp.locnum=temp.locnum-1;
+          if(temp.loclet == to.loclet && temp.locnum == temp.locnum)
+          {
+            break;
+          }
+          if(isTherePiece(temp.locnum,letters.indexOf(temp.loclet))?true:false)
+          {
+            isPiece = true;
+          }
+        }
+      }else if(to.loclet == b.loclet)
+      {
+        for(const item of letters)
+        {
+          temp.loclet=String.fromCharCode(temp.loclet.charCodeAt(0)+1);
+          temp.locnum=temp.locnum-1;
+          if(isTherePiece(temp.locnum,letters.indexOf(temp.loclet))?true:false)
+          {
+            isPiece = true;
+          }
+        }
+      }
+      return !isPiece;
+    }
+  }
+}
+
+function isTherePiece(a,b)
+{
+  try{
+   return board[a][b].piece
+  }catch(e) {
+    return false
+  }
+}
+
+function swap(from, to) {
+  let temp = { ...from };
+  from.piece = to.piece;
+  from.color = to.color;
+  to.piece = temp.piece;
+  to.color = temp.color;
+  render(board);
 }
