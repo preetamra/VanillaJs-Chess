@@ -57,6 +57,36 @@ function checkbishoppos(from, to) {
             isPiece = true;
           }
         }
+      } else if (to.loclet == c.loclet) {
+        for (const item of letters) {
+          temp.loclet = String.fromCharCode(temp.loclet.charCodeAt(0) - 1);
+          temp.locnum = temp.locnum + 1;
+          if (temp.loclet == to.loclet && temp.locnum == temp.locnum) {
+            break;
+          }
+          if (
+            isTherePiece(temp.locnum, letters.indexOf(temp.loclet))
+              ? true
+              : false
+          ) {
+            isPiece = true;
+          }
+        }
+      } else {
+        for (const item of letters) {
+          temp.loclet = String.fromCharCode(temp.loclet.charCodeAt(0) + 1);
+          temp.locnum = temp.locnum + 1;
+          if (temp.loclet == to.loclet && temp.locnum == temp.locnum) {
+            break;
+          }
+          if (
+            isTherePiece(temp.locnum, letters.indexOf(temp.loclet))
+              ? true
+              : false
+          ) {
+            isPiece = true;
+          }
+        }
       }
       return !isPiece;
     }
