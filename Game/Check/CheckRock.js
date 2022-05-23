@@ -40,7 +40,7 @@ function checkrockpos(from, to) {
         i <= letters.indexOf(to.loclet);
         i++
       ) {
-        if (isTherePiece(letters.indexOf(from.loclet), i) ? true : false) {
+        if (isTherePiece(letters.indexOf(from.loclet), i)) {
           isPiece = true;
           break;
         }
@@ -50,4 +50,4 @@ function checkrockpos(from, to) {
   }
 }
 
-export { checkrockpos };
+export default checkrockpos;

@@ -93,4 +93,4 @@ function checkbishoppos(from, to) {
   }
 }
 
-export { checkbishoppos };
+export default checkbishoppos;
