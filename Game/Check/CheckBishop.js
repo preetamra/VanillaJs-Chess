@@ -1,7 +1,15 @@
 import { letters } from "../../assignment.js";
 import { isTherePiece } from "../MoveHelper/MoveHelper.js";
+import { Turn } from "../../assignment.js";
 
 function checkbishoppos(from, to) {
+  if (
+    (Turn.turn && from.color == "white") ||
+    (!Turn.turn && from.color == "black")
+  ) {
+    return false;
+  }
+
   let a = { ...from };
   let b = { ...from };
   let c = { ...from };
@@ -28,6 +36,7 @@ function checkbishoppos(from, to) {
       let isPiece = false;
       let temp = { ...from };
       if (to.loclet == a.loclet) {
+        Turn.turn = !Turn.turn;
         for (const item of letters) {
           temp.loclet = String.fromCharCode(temp.loclet.charCodeAt(0) - 1);
           temp.locnum = temp.locnum - 1;
@@ -43,6 +52,7 @@ function checkbishoppos(from, to) {
           }
         }
       } else if (to.loclet == b.loclet) {
+        Turn.turn = !Turn.turn;
         for (const item of letters) {
           temp.loclet = String.fromCharCode(temp.loclet.charCodeAt(0) + 1);
           temp.locnum = temp.locnum - 1;
@@ -58,6 +68,7 @@ function checkbishoppos(from, to) {
           }
         }
       } else if (to.loclet == c.loclet) {
+        Turn.turn = !Turn.turn;
         for (const item of letters) {
           temp.loclet = String.fromCharCode(temp.loclet.charCodeAt(0) - 1);
           temp.locnum = temp.locnum + 1;
@@ -73,6 +84,7 @@ function checkbishoppos(from, to) {
           }
         }
       } else {
+        Turn.turn = !Turn.turn;
         for (const item of letters) {
           temp.loclet = String.fromCharCode(temp.loclet.charCodeAt(0) + 1);
           temp.locnum = temp.locnum + 1;

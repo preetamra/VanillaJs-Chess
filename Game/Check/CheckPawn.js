@@ -1,7 +1,15 @@
 import { letters } from "../../assignment.js";
 import { isTherePiece } from "../MoveHelper/MoveHelper.js";
+import { Turn } from "../../assignment.js";
 
 function checkpawnpos(from, to) {
+  if (
+    (Turn.turn && from.color == "white") ||
+    (!Turn.turn && from.color == "black")
+  ) {
+    return false;
+  }
+
   let isPiece = false;
   if (
     from.locnum == 6 &&
@@ -9,6 +17,7 @@ function checkpawnpos(from, to) {
     (to.locnum == from.locnum - 1 ||
       (to.locnum == from.locnum - 2 && from.loclet == to.loclet))
   ) {
+    Turn.turn = !Turn.turn;
     return !(
       isTherePiece(from.locnum - 1, letters.indexOf(from.loclet)) &&
       isTherePiece(from.locnum - 2, letters.indexOf(from.loclet))
@@ -19,6 +28,7 @@ function checkpawnpos(from, to) {
     (to.locnum == from.locnum + 1 ||
       (to.locnum == from.locnum + 2 && from.loclet == to.loclet))
   ) {
+    Turn.turn = !Turn.turn;
     return !(
       isTherePiece(from.locnum + 1, letters.indexOf(from.loclet)) &&
       isTherePiece(from.locnum + 2, letters.indexOf(from.loclet))
@@ -29,6 +39,7 @@ function checkpawnpos(from, to) {
       from.loclet == to.loclet &&
       to.locnum > from.locnum
     ) {
+      Turn.turn = !Turn.turn;
       return !isTherePiece(from.locnum + 1, letters.indexOf(from.loclet));
     }
     if (
@@ -36,6 +47,7 @@ function checkpawnpos(from, to) {
       from.loclet == to.loclet &&
       to.locnum < from.locnum
     ) {
+      Turn.turn = !Turn.turn;
       return !isTherePiece(from.locnum - 1, letters.indexOf(from.loclet));
     }
   }

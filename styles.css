@@ -2,9 +2,20 @@ html {
   font-family: sans-serif;
 }
 
+.Move{
+  display: inline;
+}
+
+.Move-Square{
+  height: 10vh;
+  width: 5vw;
+  background-color: black;
+}
+
 body {
   margin: 5rem;
   color: #521751;
+  background-color: antiquewhite;
 }
 
 h1 {

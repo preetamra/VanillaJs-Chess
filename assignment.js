@@ -22,6 +22,8 @@ for (let i = 0; i < 8; i++) {
   board.push(temp);
 }
 
+let Turn = { turn: false };
+
 initialPieces(board);
 
 console.log(board);
@@ -92,4 +94,4 @@ Chess.addEventListener("click", (e) => {
   }
 });
 
-export { board, letters, pieceName, container };
+export { board, letters, pieceName, container, Turn };

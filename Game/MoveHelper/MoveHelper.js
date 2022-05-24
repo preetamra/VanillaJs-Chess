@@ -1,4 +1,4 @@
-import { pieceName, board, letters } from "../../assignment.js";
+import { pieceName, board, letters, Turn } from "../../assignment.js";
 import render from "../Render/Render.js";
 import checkbishoppos from "../Check/CheckBishop.js";
 import checkrockpos from "../Check/CheckRock.js";

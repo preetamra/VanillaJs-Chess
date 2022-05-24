@@ -1,4 +1,6 @@
-import { board, container, pieceName } from "../../assignment.js";
+import { board, container, pieceName, Turn } from "../../assignment.js";
+
+const turn = document.getElementsByClassName("Move-Square")[0];
 
 function render(board) {
   container.innerHTML = "";
@@ -83,6 +85,7 @@ function render(board) {
     }
     container.appendChild(tr);
   }
+  turn.style.backgroundColor = Turn.turn ? "black" : "white";
 }
 
 export default render;
